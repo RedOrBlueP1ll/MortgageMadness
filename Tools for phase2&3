@@ -1,3 +1,5 @@
 Tools that might help with later phases:
 1. https://github.com/explosion/spaCy   
    -- this is SpaCy library for NLP with many powerful features such as rule based matching, text classification, etc.
+2. https://hal.archives-ouvertes.fr/hal-01572443/document
+   -- paper about NLP in the applicaton of rules and regulations
