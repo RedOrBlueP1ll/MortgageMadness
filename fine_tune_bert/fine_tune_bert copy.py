@@ -11,6 +11,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 import matplotlib.pyplot as plt
 from datasets import load_metric
 import os
+import chunkify
 
 
 class BERT_fine_tuner():
@@ -19,12 +20,11 @@ class BERT_fine_tuner():
 		self.sent2 = sent2 #second sentences
 		self.label = label #labels: 0->paired / 1->unpaired
 		self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True) #load BERT tokenizer
-		self.trainDataLoader #Pytorch dataloader for training set
-		self.testDataLoader #Pytorch dataloader for test set
-		self.MAX_LEN #max length of tensor
-		self.input_dict #tokenized datasets
-		self.model #pretrained BERT model
-		self.pool = ThreadPool(8) #thread pool to acelerate computation
+		self.trainDataLoader = None #Pytorch dataloader for training set
+		self.testDataLoader = None #Pytorch dataloader for test set
+		self.MAX_LEN = 512 #max length of tensor
+		self.input_dict = dict() #tokenized datasets
+		self.model = None #pretrained BERT model
 		# BERT authors recommend the following hyperparameters:
 		self.batch_size = [16,32]
 		self.epochs = [2,3,4]
@@ -32,7 +32,7 @@ class BERT_fine_tuner():
 		self.eps = [1e-8, 1e-6] #default epsilon is 1e-6
 		self.train_loss = list() #array to store training losses of all epochs
 		self.test_loss = list() #array to store test losses of all epochs
-		self.metrics #variable to store accuracies of all batches
+		self.metrics = None #variable to store accuracies of all batches
 		self.model_dir = './fine_tuned_model/' #directory to save fine tuned model
 
 
@@ -40,7 +40,7 @@ class BERT_fine_tuner():
 	## Tokenize datasets using the same tokenizer as pretrained BERT model
 	## Pad tensors to the max length of the tokenized sentence in the dataset
 	## Truncation is applied
-	def tokenize():
+	def tokenize(self):
 		self.input_dict = self.tokenizer(
 										self.sent1,
 										self.sent2,
@@ -49,33 +49,40 @@ class BERT_fine_tuner():
 										padding = 'max_length',
 										return_tensors = 'pt'
 										)
-		self.input_tensors['label'] = torch.LongTensor([self.label]).T
+		self.input_dict['label'] = torch.LongTensor([self.label]).T
 
 
 	## Split the dataset into training set and test set by 8:2
 	## Create pytorch dataloader for both datasets 
-	def createDataLodaer():
+	def createDataLodaer(self):
 		dataset = self.thisDataSet(self.input_dict)
-		train, test = random_split(dataset,[0.8*len(dataset), 0.2*len(dataset)])
+		train, test = random_split(dataset,[int(0.8*len(dataset)), len(dataset)-int(0.8*len(dataset))])
 		self.trainDataLoader = DataLoader(train, 
 									 batch_size=self.batch_size[1], 
 									 sampler = RandomSampler(train))
 		self.testDataLoader = DataLoader(test, 
 									 batch_size=self.batch_size[1], 
-									 sample = SequentialSampler(test))
+									 sampler = SequentialSampler(test))
 
 
-	## Fine tune BERT model
-	def fineTune():
+	## Load BERT model
+	def load_model(self):
 		# if previous fine tuned model exists, load the model
 		# else, load a pretrained model
 		if not os.path.exists(self.model_dir):
 			self.model = BertForNextSentencePrediction.from_pretrained(
 							"bert-base-uncased",
 							num_labels = 2)
+			# os.makedirs(self.model_dir)
+			# self.model.save_pretrained(self.model_dir)
+			# self.tokenizer.save_pretrained(self.model_dir)
 		else:
 			self.model = BertForNextSentencePrediction.from_pretrained(
 							self.model_dir)
+
+
+	## Fine tune BERT model
+	def fineTune(self):
 		# check if GPU is available and move model to the available device
 		if torch.cuda.is_available():
 			device = torch.device("cuda")
@@ -83,7 +90,7 @@ class BERT_fine_tuner():
 			device = torch.device("cpu")
 		self.model.to(device)
 		# create adam optimizer AdamW with small eps
-		optimizer = AdamW(model.parameters(),
+		optimizer = AdamW(self.model.parameters(),
 						  eps=self.eps[1],
 						  lr=self.learning_rate[0])
 		# create a linear schedule for learning rate
@@ -139,7 +146,7 @@ class BERT_fine_tuner():
 			loss_test = result_test.loss
 			logits_test = result_test.logits
 			predictions = torch.argmax(logits, dim=-1)
-			metrix.add_batch(predictions=predictions, references=batch['labels']) #add a batch pf predictions and references to the metrics stack
+			metric.add_batch(predictions=predictions, references=batch['labels']) #add a batch pf predictions and references to the metrics stack
 			self.test_loss.append(loss_test.item()) #record test loss
 			#show process
 			loop_train.set_description(f"Batch {batch}")
@@ -166,12 +173,10 @@ class BERT_fine_tuner():
 	## The purpose of this is to pad to the actual max length of the sentences 
 	## in the dataset instead of using 512
 	def getMaxLen(self):
-		self.MAX_LEN = self.pool.reduce(lambda x,y: max(self.tokenizer.encode(x,add_special_tokens=True),
-											  			self.tokenizer.encode(y, add_special_tokens=True)),
-											  		self.sent1)
-		self.MAX_LEN = self.pool.reduce(lambda x,y: max(self.tokenizer.encode(x,add_special_tokens=True),
-											  			self.tokenizer.encode(y, add_special_tokens=True)),
-											  		self.sent2)
+		pool = ThreadPool(4)
+		mapped = pool.map(lambda x: len(self.tokenizer.encode(x)), 
+						  self.sent1+self.sent2)
+		self.MAX_LEN = reduce(max, mapped)
 		self.MAX_LEN = min(self.MAX_LEN, 512)
 
 
@@ -180,8 +185,16 @@ class BERT_fine_tuner():
 		def __init__(self, inputs):
 			self.inputs = inputs
 		def __len__(self):
-			return len(self.inputs[input_ids])
+			return len(self.inputs["input_ids"])
 		def __getitem__(self, idx):
-			return {key: inputs[key][idx] for key in self.inputs.keys()}
+			return {key: value[idx] for key,value in self.inputs.items()}
 
 
+sent1 = ["this is the first sentence", "this is the first sentence","this is the first sentence","this is the first sentence"]
+sent2 = ["this is the second sentence","this is the second sentence","this is the second sentence","this is the second sentence"]
+label = [0,0,1,1]
+bft = BERT_fine_tuner(sent1, sent2, label)
+bft.tokenize()
+bft.createDataLodaer()
+bft.load_model()
+bft.fineTune()
