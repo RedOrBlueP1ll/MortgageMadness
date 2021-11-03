@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 from datasets import load_metric
 import os
 import chunkify
+import random
+import time
 
 
 class BERT_fine_tuner():
@@ -19,7 +21,7 @@ class BERT_fine_tuner():
 		self.sent1 = sent1 #first sentences
 		self.sent2 = sent2 #second sentences
 		self.label = label #labels: 0->paired / 1->unpaired
-		self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True) #load BERT tokenizer
+		self.tokenizer = None #BERT tokenizer
 		self.trainDataLoader = None #Pytorch dataloader for training set
 		self.testDataLoader = None #Pytorch dataloader for test set
 		self.MAX_LEN = 512 #max length of tensor
@@ -73,12 +75,14 @@ class BERT_fine_tuner():
 			self.model = BertForNextSentencePrediction.from_pretrained(
 							"bert-base-uncased",
 							num_labels = 2)
+			self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True) #load BERT tokenizer
 			# os.makedirs(self.model_dir)
 			# self.model.save_pretrained(self.model_dir)
 			# self.tokenizer.save_pretrained(self.model_dir)
 		else:
 			self.model = BertForNextSentencePrediction.from_pretrained(
 							self.model_dir)
+			self.tokenizer = BertTokenizer.from_pretrained(self.model_dir)
 
 
 	## Fine tune BERT model
@@ -123,9 +127,9 @@ class BERT_fine_tuner():
 				loss_train.backward() #backpropagation
 				optimizer.step() #update parameters
 				schedule.step() #update learning rate
-			#show process
-			loop_train.set_description(f"Epoch {epoch}")
-			loop_train.set_postfix(loss=loss_train.item())
+				#show process
+				loop_train.set_description(f"Epoch {epoch}")
+				loop_train.set_postfix(loss=loss_train.item())
 		#============================= test section ============================#
 		metric = load_metric("accuracy") 
 		self.model.eval() #switch model to evaluation mode
@@ -179,7 +183,6 @@ class BERT_fine_tuner():
 		self.MAX_LEN = reduce(max, mapped)
 		self.MAX_LEN = min(self.MAX_LEN, 512)
 
-
 	## Inner class for Pytorch dataset
 	class thisDataSet(Dataset):
 		def __init__(self, inputs):
@@ -190,11 +193,20 @@ class BERT_fine_tuner():
 			return {key: value[idx] for key,value in self.inputs.items()}
 
 
-sent1 = ["this is the first sentence", "this is the first sentence","this is the first sentence","this is the first sentence"]
-sent2 = ["this is the second sentence","this is the second sentence","this is the second sentence","this is the second sentence"]
-label = [0,0,1,1]
-bft = BERT_fine_tuner(sent1, sent2, label)
-bft.tokenize()
-bft.createDataLodaer()
-bft.load_model()
-bft.fineTune()
+def main(sent1, sent2, label):
+	bft = BERT_fine_tuner(sent1, sent2, label)
+	bft.load_model()
+	bft.tokenize()
+	bft.createDataLodaer()
+	bft.fineTune()
+	
+sent1 = list()
+sent2 = list()
+label = list()
+for i in range(0,1000):
+	sent1.append("this is the first sentence")
+	sent2.append("this is the second sentence")
+	label.append(random.randint(0,1))
+start = time.time()
+main(sent1, sent2, label)
+print(time.time()-start)
