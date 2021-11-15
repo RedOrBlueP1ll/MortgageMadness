@@ -5,13 +5,15 @@ from torch.utils.data import random_split,RandomSampler, SequentialSampler
 import tensorflow as tf
 from functools import reduce
 from transformers import BertTokenizer, BertForPreTraining, BertForNextSentencePrediction, AdamW
-#from transformers import WarmupLinearSchedule
+from transformers import get_linear_schedule_with_warmup
 from tqdm.auto import tqdm
 from multiprocessing.dummy import Pool as ThreadPool
 import matplotlib.pyplot as plt
 from datasets import load_metric
 import os
+import chunkify
 import random
+import time
 
 
 class BERT_fine_tuner():
@@ -87,7 +89,7 @@ class BERT_fine_tuner():
 	def fineTune(self):
 		# check if GPU is available and move model to the available device
 		if torch.cuda.is_available():
-			device = torch.device("cpu")
+			device = torch.device("cuda")
 		else:
 			device = torch.device("cpu")
 		self.model.to(device)
