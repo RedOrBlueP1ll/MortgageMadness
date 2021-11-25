@@ -93,7 +93,7 @@ class Kmeans:
             sil_coeff.append(score)
 
         max_value_sil_coeff = max(sil_coeff)
-        num_clusters = sil_coeff.index(max_value_sil_coeff) + 1
+        num_clusters = sil_coeff.index(max_value_sil_coeff) + 2
 
         print("Optimal number of clusters estimated from the Silhouette Coefficients: ", num_clusters)
 
