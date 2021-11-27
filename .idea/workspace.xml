@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd816754-8a77-4530-b0ba-65a1a3606492" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Clustering/Kmeans.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Clustering/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clustering/KMeansNew.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/DF_edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/DF_edit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Kmeans.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Kmeans.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/article_index_768.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Training data/article_index_768.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/article_tensor.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/cluster_article_tensor.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/tensorsBERT_383.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Training data/tensorsBERT_383.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/tensorsBERT_768.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Training data/tensorsBERT_768.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +37,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Clustering" />
+    <property name="settings.editor.selected.configurable" value="RainbowCSV.Settings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

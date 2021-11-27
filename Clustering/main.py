@@ -5,21 +5,21 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import hist
 
 def main():
-    df_transpose = pd.read_csv('article_index_768.csv', header=None)
-    df_383 = pd.read_csv("tensorsBERT_383.csv")
-    df_768 = pd.read_csv('tensorsBERT_768.csv', header=None)
+    df_transpose = pd.read_csv('Training data/article_index_256.csv', header=None)
+    df_tensors = pd.read_csv('Training data/sentence_tensors_256.csv', header=None)
+    df_383 = pd.read_csv("Training data/tensorsBERT_383.csv")
 
     df_obj = DF_edit()
-    article_tensor_df = df_obj.art_tens(df_transpose, df_768) # create a new csv with the article and the tensor
+    article_tensor_df = df_obj.art_tens(df_transpose, df_tensors) # create a new csv with the article and the tensor
 
 
     num_of_clusters = 51
 
     print("Performing KMeans...")
     kmeans_model = Kmeans()
-    labels, cluster_dict, labels_df = kmeans_model.kmeans(df_768, num_of_clusters)
+    labels, cluster_dict, labels_df = kmeans_model.kmeans(df_tensors, num_of_clusters)
     cl_art_ten_df = df_obj.cl_art_tens(article_tensor_df, labels_df) # create a new csv with the cluster, article and the tensor
-    full_df = pd.read_csv('cluster_article_tensor.csv')
+    full_df = pd.read_csv('Results Data/cluster_article_tensor.csv')
 
     pd.set_option('display.max_rows', None)
     print(full_df.groupby(['article', 'cluster']).sum()) # see how many clusters are in an article
