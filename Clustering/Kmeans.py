@@ -23,7 +23,7 @@ class Kmeans:
         #print(scaled_features)
 
         print("Creating clusters...")
-        kmeans_model_labels = KMeans(n_clusters=num_clusters, max_iter=100, random_state=43).fit_predict(scaled_embeddings)
+        kmeans_model_labels = KMeans(n_clusters=num_clusters, max_iter=100, random_state=42).fit_predict(scaled_embeddings)
 
         np.set_printoptions(threshold=np.inf) # this is to show all the clusters because it cuts them
 
