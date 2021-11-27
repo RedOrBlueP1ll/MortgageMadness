@@ -23,8 +23,13 @@ class Kmeans:
         #print(scaled_features)
 
         print("Creating clusters...")
-        kmeans_model_labels = KMeans(n_clusters=num_clusters, max_iter=100, random_state=42).fit_predict(scaled_embeddings)
+        kmeans_model_labels = KMeans(n_clusters=num_clusters, max_iter=100, random_state=43).fit_predict(scaled_embeddings)
+
         np.set_printoptions(threshold=np.inf) # this is to show all the clusters because it cuts them
+
+        #print(kmeans_model_labels)
+        labels_df = pd.DataFrame(kmeans_model_labels)
+        #print(labels_df)
 
         tensor_cluster_dict = {}
         j = 0
@@ -35,7 +40,9 @@ class Kmeans:
         #print(tensor_cluster_dict)
         #print(kmeans_model_labels)
 
-        return kmeans_model_labels, tensor_cluster_dict
+
+
+        return kmeans_model_labels, tensor_cluster_dict, labels_df
 
     """" The elbow method gives the optimal number of clusters using SSE - Sum of Squared Errors
             
