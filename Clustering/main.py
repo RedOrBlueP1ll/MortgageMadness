@@ -22,7 +22,7 @@ def main():
     full_df = pd.read_csv('Results Data/cluster_article_tensor.csv')
 
     pd.set_option('display.max_rows', None)
-    #print(full_df.groupby(['article', 'cluster']).sum()) # see how many clusters are in an article
+    print(full_df.groupby(['article', 'cluster']).sum()) # see how many clusters are in an article
 
     #print("Performing Elbow Method...")
     #kmeans_model.elbow_method(df_768)
