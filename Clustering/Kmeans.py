@@ -23,7 +23,14 @@ class Kmeans:
         #print(scaled_features)
 
         print("Creating clusters...")
-        kmeans_model_labels = KMeans(n_clusters=num_clusters, max_iter=100, random_state=42).fit_predict(scaled_embeddings)
+        kmeans = KMeans(n_clusters=num_clusters, max_iter=10000, random_state=7564, n_init=100, init="k-means++")
+        kmeans_model_labels = kmeans.fit_predict(scaled_embeddings)
+
+        centroids = kmeans.cluster_centers_
+        np.set_printoptions(threshold=np.inf)
+        # print("Centroids...")
+        # print(centroids)
+
 
         np.set_printoptions(threshold=np.inf) # this is to show all the clusters because it cuts them
 
