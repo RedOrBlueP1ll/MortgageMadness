@@ -32,7 +32,7 @@ def main():
     #print("Performing Silhouette Coefficients Method...")
     #kmeans_model.silCoeff(df_768)
 
-def main2(dimension, num_of_clusters):
+def BGM(dimension, num_of_clusters):
     # only change df_transpose and df_tensors
     # (note: the tensors with 383 dimensions have header while the others don't, hence different functions!)
     df_transpose = pd.read_csv('Training data/dimension_'+dimension+'/article_index_'+dimension+'.csv', header=None)
@@ -68,5 +68,5 @@ if __name__ == "__main__":
     for dim in dimensions:
         for n in n_clusters:
             print('WORKING ON', str(dim), '-', str(n))
-            main2(dimension=str(dim), num_of_clusters=n)
-    # main2(dimension=str(32), num_of_clusters=10)
+            BGM(dimension=str(dim), num_of_clusters=n)
+    # BGM(dimension=str(32), num_of_clusters=10)
