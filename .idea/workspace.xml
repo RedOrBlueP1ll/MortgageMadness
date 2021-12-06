@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cd816754-8a77-4530-b0ba-65a1a3606492" name="Default Changelist" comment="All BGM results done">
+    <list default="true" id="cd816754-8a77-4530-b0ba-65a1a3606492" name="Default Changelist" comment="Removed BGM results">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/BGM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/BGM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/art_ten_dim128_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/art_ten_dim128_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/art_ten_dim128_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/cl_art_ten_dim128_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/cl_art_ten_dim128_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_128/cl_art_ten_dim128_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/art_ten_dim256_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/art_ten_dim256_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/art_ten_dim256_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/cl_art_ten_dim256_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/cl_art_ten_dim256_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_256/cl_art_ten_dim256_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/art_ten_dim32_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/art_ten_dim32_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/art_ten_dim32_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/cl_art_ten_dim32_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/cl_art_ten_dim32_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_32/cl_art_ten_dim32_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/art_ten_dim384_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/art_ten_dim384_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/art_ten_dim384_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/cl_art_ten_dim384_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/cl_art_ten_dim384_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_384/cl_art_ten_dim384_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/art_ten_dim512_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/art_ten_dim512_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/art_ten_dim512_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/cl_art_ten_dim512_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/cl_art_ten_dim512_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_512/cl_art_ten_dim512_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/art_ten_dim64_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/art_ten_dim64_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/art_ten_dim64_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/cl_art_ten_dim64_clus10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/cl_art_ten_dim64_clus25.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Results Data/BGM/dimension_64/cl_art_ten_dim64_clus50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638718782236</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Removed BGM results">
+      <created>1638785942939</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638785942939</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +185,7 @@
     <MESSAGE value="BGM working and creating the cluster_article_tensor files" />
     <MESSAGE value="Working on BGM results" />
     <MESSAGE value="All BGM results done" />
-    <option name="LAST_COMMIT_MESSAGE" value="All BGM results done" />
+    <MESSAGE value="Removed BGM results" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed BGM results" />
   </component>
 </project>
