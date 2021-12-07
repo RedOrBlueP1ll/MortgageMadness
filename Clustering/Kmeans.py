@@ -27,6 +27,10 @@ class Kmeans:
         kmeans_model_labels = kmeans.fit_predict(scaled_embeddings)
 
         centroids = kmeans.cluster_centers_
+        centroids_df = pd.DataFrame(centroids, columns=None)
+        #print(centroids_df)
+        centroids_df.to_csv('Centroids/dimension_512/centroids_dim512_clus50.csv')
+
         np.set_printoptions(threshold=np.inf)
         # print("Centroids...")
         # print(centroids)

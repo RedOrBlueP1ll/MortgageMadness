@@ -19,13 +19,13 @@ def main():
     print("Performing KMeans...")
     kmeans_model = Kmeans()
     labels, cluster_dict, labels_df, centroids = kmeans_model.kmeans(df_tensors, num_of_clusters)
-    print("centroids", centroids)
+    #print("centroids", centroids)
     save_to_location = 'Results Data/Kmeans/dimension_512/cl_art_ten_dim512_clus50.csv'
-    cl_art_ten_df = df_obj.cl_art_tens(article_tensor_df, labels_df, save_to_location) # create a new csv with the cluster, article and the tensor
-    full_df = pd.read_csv('Results Data/Kmeans/dimension_512/cl_art_ten_dim512_clus50.csv')
-
-    pd.set_option('display.max_rows', None)
-    print(full_df.groupby(['article', 'cluster']).sum()) # see how many clusters are in an article
+    #cl_art_ten_df = df_obj.cl_art_tens(article_tensor_df, labels_df, save_to_location) # create a new csv with the cluster, article and the tensor
+    # full_df = pd.read_csv('Results Data/Kmeans/dimension_512/cl_art_ten_dim512_clus50.csv')
+    #
+    # pd.set_option('display.max_rows', None)
+    # print(full_df.groupby(['article', 'cluster']).sum()) # see how many clusters are in an article
 
     #print("Performing Elbow Method...")
     #kmeans_model.elbow_method(df_768)
