@@ -9,7 +9,7 @@ class DF_edit:
         df_transposed.columns = ['article']
         #print(df_transposed)
         new_df = pd.concat([df_transposed, df_to_add], axis=1)
-        new_df.to_csv(save_to_location)
+        new_df.to_csv(save_to_location, encoding='utf-8')
 
         return new_df
 
@@ -18,5 +18,5 @@ class DF_edit:
     def cl_art_tens(self, article_tensor_df, cluster_df, save_to_location):
         cluster_df.columns = ['cluster']
         new_df = pd.concat([cluster_df, article_tensor_df], axis=1)
-        new_df.to_csv(save_to_location)
+        new_df.to_csv(save_to_location, encoding='utf-8')
         return new_df
