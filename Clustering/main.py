@@ -18,7 +18,8 @@ def main():
 
     print("Performing KMeans...")
     kmeans_model = Kmeans()
-    labels, cluster_dict, labels_df = kmeans_model.kmeans(df_tensors, num_of_clusters)
+    labels, cluster_dict, labels_df, centroids = kmeans_model.kmeans(df_tensors, num_of_clusters)
+    print("centroids", centroids)
     save_to_location = 'Results Data/Kmeans/dimension_512/cl_art_ten_dim512_clus50.csv'
     cl_art_ten_df = df_obj.cl_art_tens(article_tensor_df, labels_df, save_to_location) # create a new csv with the cluster, article and the tensor
     full_df = pd.read_csv('Results Data/Kmeans/dimension_512/cl_art_ten_dim512_clus50.csv')
@@ -61,12 +62,12 @@ def BGM_main(dimension, num_of_clusters):
 
 
 if __name__ == "__main__":
-    # main()
+    main()
     #this will do all of them at once
-    dimensions = [32, 64, 128, 256, 384, 512]
-    n_clusters = [10, 25, 50]
-    for dim in dimensions:
-        for n in n_clusters:
-            print('WORKING ON', str(dim), '-', str(n))
-            BGM_main(dimension=str(dim), num_of_clusters=n)
+    # dimensions = [32, 64, 128, 256, 384, 512]
+    # n_clusters = [10, 25, 50]
+    # for dim in dimensions:
+    #     for n in n_clusters:
+    #         print('WORKING ON', str(dim), '-', str(n))
+    #         BGM_main(dimension=str(dim), num_of_clusters=n)
     # BGM(dimension=str(32), num_of_clusters=10)

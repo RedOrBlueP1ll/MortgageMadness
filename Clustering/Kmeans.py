@@ -46,10 +46,11 @@ class Kmeans:
 
         #print(tensor_cluster_dict)
         #print(kmeans_model_labels)
+        print(labels_df)
 
 
 
-        return kmeans_model_labels, tensor_cluster_dict, labels_df
+        return kmeans_model_labels, tensor_cluster_dict, labels_df, centroids
 
     """" The elbow method gives the optimal number of clusters using SSE - Sum of Squared Errors
             
