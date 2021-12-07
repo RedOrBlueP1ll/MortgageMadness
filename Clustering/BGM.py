@@ -24,7 +24,7 @@ class BGM:
 
         print('\nClustering ...')
         start = time.time()
-        BGM = BayesianGaussianMixture(n_components=n_clusters, random_state=1, n_init=1, covariance_type='full', init_params='kmeans', max_iter=100)
+        BGM = BayesianGaussianMixture(n_components=n_clusters, random_state=0, n_init=10, covariance_type='full', init_params='kmeans', max_iter=1000)
         BGM_model_labels = BGM.fit_predict(scaled_embeddings)
         print('Duration: {} seconds'.format(round(time.time() - start, 3)))
 
