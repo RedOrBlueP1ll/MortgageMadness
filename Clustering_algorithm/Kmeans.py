@@ -29,7 +29,7 @@ class Kmeans:
         centroids = kmeans.cluster_centers_
         centroids_df = pd.DataFrame(centroids, columns=None)
         #print(centroids_df)
-        centroids_df.to_csv('Centroids/dimension_512/centroids_dim512_clus50.csv')
+        #centroids_df.to_csv('Centroids/dimension_512/centroids_dim512_clus50.csv')
 
         np.set_printoptions(threshold=np.inf)
         # print("Centroids...")
@@ -54,7 +54,7 @@ class Kmeans:
 
 
 
-        return kmeans_model_labels, tensor_cluster_dict, labels_df, centroids
+        return kmeans_model_labels, tensor_cluster_dict, labels_df, centroids_df
 
     """" The elbow method gives the optimal number of clusters using SSE - Sum of Squared Errors
             
