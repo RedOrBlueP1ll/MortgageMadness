@@ -12,9 +12,9 @@ class Kmeans:
             dictionary where the key is the n-th tensor and the value is the cluster that
             is assigned to the corresponding tensor """
     def kmeans(self, bert_embeddings_df,  num_clusters):
-        print("Loading embeddings...")
+        #print("Loading embeddings...")
 
-        print("Standardizing embeddings...")
+        #print("Standardizing embeddings...")
         # we create a scaler to stanadardize the embeddings
         # Standard Scaler - StandardScaler() will normalize the features i.e. each column of X, INDIVIDUALLY,
         # so that each column/feature/variable will have μ = 0 and σ = 1.
@@ -50,7 +50,7 @@ class Kmeans:
 
         #print(tensor_cluster_dict)
         #print(kmeans_model_labels)
-        print(labels_df)
+        #print(labels_df)
 
 
 
