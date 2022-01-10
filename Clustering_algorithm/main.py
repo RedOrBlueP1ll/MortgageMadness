@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
 
     #this will do all of them at once
-    dimensions = [300]
+    dimensions = [384, 450]
     n_clusters = [10, 15, 20, 25, 30, 35, 40, 45, 50]
     for dim in dimensions:
         for n in n_clusters:
