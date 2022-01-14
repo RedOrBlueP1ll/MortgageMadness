@@ -37,18 +37,18 @@ def kmeans_main(dimension, num_of_clusters):
 def BGM_main(dimension, num_of_clusters):
     # only change df_transpose and df_tensors
     # (note: the tensors with 383 dimensions have header while the others don't, hence different functions!)
-    df_transpose = pd.read_csv('Training data/dimension_'+dimension+'/article_index_'+dimension+'.csv', header=None)
-    df_tensors = pd.read_csv('Training data/dimension_'+dimension+'/sentence_tensors_'+dimension+'.csv', header=None)
+    df_transpose = pd.read_csv('/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Training_tensor_data/new data/'+dimension+'/article_index_'+dimension+'.csv', header=None)
+    df_tensors = pd.read_csv('/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Training_tensor_data/new data/'+dimension+'/sentence_tensors_'+dimension+'.csv', header=None)
     ##df_383 = pd.read_csv("Training data/tensorsBERT_383.csv")
 
     df_obj = DF_edit()
-    save_to_location = 'Results Data/BGM/dimension_'+dimension+'/art_ten_dim'+dimension+'_clus'+str(num_of_clusters)+'.csv'
+    save_to_location = '/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Output_data/new data/BGM/art_ten_dim/'+dimension+'/art_ten_dim'+dimension+'_clus'+str(num_of_clusters)+'.csv'
     article_tensor_df = df_obj.art_tens(df_transpose, df_tensors, save_to_location) #create a new csv with the article and the tensor
 
     print("Performing BGM...")
     BGM_model = BGM()
     labels, cluster_dict, labels_df = BGM_model.run_BGM(df_tensors, num_of_clusters)
-    save_to_location = 'Results Data/BGM/dimension_' + dimension + '/cl_art_ten_dim' + dimension + '_clus' + str(num_of_clusters) + '.csv'
+    save_to_location = '/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Output_data/new data/BGM/cl_art_ten_dim/'+dimension+'/cl_art_ten_dim'+dimension+'_clus'+str(num_of_clusters)+'.csv'
     cl_art_ten_df = df_obj.cl_art_tens(article_tensor_df, labels_df, save_to_location) #create a new csv with the cluster, article and the tensor
 
     # full_df = pd.read_csv(save_to_location)
@@ -63,21 +63,24 @@ def BGM_main(dimension, num_of_clusters):
 
 
 if __name__ == "__main__":
-    #main()
-    #this will do all of them at once
-    # dimensions = [32, 64, 128, 256, 384, 512]
-    # n_clusters = [10, 25, 50]
-    # for dim in dimensions:
-    #     for n in n_clusters:
-    #         print('WORKING ON', str(dim), '-', str(n))
-    #         BGM_main(dimension=str(dim), num_of_clusters=n)
-    # BGM(dimension=str(32), num_of_clusters=10)
-
-
-    #this will do all of them at once
-    dimensions = [512]
+    # dimension = str(32)
+    # pd.read_csv('/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Training_tensor_data/new data/'+dimension+'/article_index_'+dimension+'.csv')
+    # pd.read_csv('/home/roobs/Documents/PycharmProjects/MortgageMadness/Data/Training_tensor_data/new data/32/article_index_32.csv')
+    # main()
+    # # this will do all of them at once
+    dimensions = [32, 64, 96, 128, 200, 256, 300, 384, 450, 512]
     n_clusters = [10, 15, 20, 25, 30, 35, 40, 45, 50]
     for dim in dimensions:
         for n in n_clusters:
             print('WORKING ON', str(dim), '-', str(n))
-            kmeans_main(dimension=str(dim), num_of_clusters=n)
+            BGM_main(dimension=str(dim), num_of_clusters=n)
+    # BGM(dimension=str(32), num_of_clusters=10)
+
+
+    # #this will do all of them at once
+    # dimensions = [512]
+    # n_clusters = [10, 15, 20, 25, 30, 35, 40, 45, 50]
+    # for dim in dimensions:
+    #     for n in n_clusters:
+    #         print('WORKING ON', str(dim), '-', str(n))
+    #         kmeans_main(dimension=str(dim), num_of_clusters=n)
