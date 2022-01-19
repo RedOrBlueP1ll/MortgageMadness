@@ -13,8 +13,14 @@ from data_creator_advanced import dataset_creator_advanced
 import pandas as pd
 import csv
 
+
+## This class converts text sentences to tensors using fine-tuned model
 class Sentence_Convertor:
 
+	## This method defines several parameters:
+	## model_path: path of fine_tuned model
+	## save_csv_path: path to save the generated tensors
+	## output_dim: output dimension of the model you choose
 	def setup(self, model_path, save_csv_path, output_dim):
 		self.model_path = model_path
 		self.save_csv_path = save_csv_path
@@ -26,12 +32,14 @@ class Sentence_Convertor:
 		self.model = None
 		self.nlp = spacy.load("en_core_web_sm")
 
+	## This method is conjugate function for the whole converting process
 	def convert_to_tensors(self, file_address):
 		self.load_model()
 		self.separate_and_reformat_sentences(file_address)
 		self.generate_sentence_tensor()
 		self.save_to_csv()
 
+	## This method loads the fine-tuned model
 	def load_model(self):
 		if not os.path.exists(self.model_path):
 			word_embedding_model = models.Transformer('bert-base-uncased', 
@@ -48,7 +56,9 @@ class Sentence_Convertor:
 			self.model = SentenceTransformer(self.model_path)
 			print("---- model for sentence tensor generator is loaded ----")
 
-	## preprocessing text: sentences separation and reformating
+	## This method preprocesses input text file:
+	## 1. separate text into sentences
+	## 2. reformat sentences and remove sentences length less than 3
 	def separate_and_reformat_sentences(self, file_address):
 	    with open(file_address) as f:
 	        # split text by articles
@@ -75,10 +85,15 @@ class Sentence_Convertor:
 	            key_idx = [key]*len(value_text)
 	            self.article_idx = self.article_idx + key_idx
 
+
+	## This method uses model to convert individual sentences to tensors
 	def generate_sentence_tensor(self):
 		for item in self.text:
 			self.tensor_list.append(self.model.encode(item, convert_to_numpy=True))
 
+
+	## This method save the results to the specified path as csv files
+	## Path needs to be changed for your OS environment
 	def save_to_csv(self):
 		path_text = self.save_csv_path + "/setences_text_"+str(self.output_dim)+".csv"
 		path_tensors = self.save_csv_path + "/sentence_tensors_"+str(self.output_dim)+".csv"
@@ -97,11 +112,15 @@ class Sentence_Convertor:
 			writer = csv.writer(f)
 			writer.writerow(self.article_idx)
 
-sc = Sentence_Convertor()
-model_path = "/Users/wangyangwu/Documents/Sentence_transformers/saved_models/fine_tuned_model_512"
-save_csv_path = "/Users/wangyangwu/Documents/Sentence_transformers/Results_Data"
-file_address = "/Users/wangyangwu/Documents/Sentence_transformers/text_to_be_trained/03_2021_trans.txt"
-output_dim = 512
-sc.setup(model_path, save_csv_path,output_dim)
-sc.convert_to_tensors(file_address)
+
+## This is the whole process of conversion
+## Note: output_dim has to be the same as the dimension of the chosen model
+def main():
+	sc = Sentence_Convertor()
+	model_path = "/Users/wangyangwu/Documents/Sentence_transformers/saved_models/fine_tuned_model_512"
+	save_csv_path = "/Users/wangyangwu/Documents/Sentence_transformers/Results_Data"
+	file_address = "/Users/wangyangwu/Documents/Sentence_transformers/text_to_be_trained/03_2021_trans.txt"
+	output_dim = 512
+	sc.setup(model_path, save_csv_path,output_dim)
+	sc.convert_to_tensors(file_address)
 

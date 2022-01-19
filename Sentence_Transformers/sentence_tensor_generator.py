@@ -8,6 +8,7 @@ import torch
 import os
 import csv
 
+## This class is a big helper class. It is not essential to understand it 
 class Sentence_tensor_generator:
 
 	def setup(self, model_load_path,save_csv_path, text, article_idx, output_dim):
@@ -42,22 +43,22 @@ class Sentence_tensor_generator:
 			writer.writerow(self.article_idx)
 
 
-creator = dataset_creator("/Users/wangyangwu/Documents/Sentence_transformers/03_2021_trans.txt")
-creator.create_dataset()
-text = creator.get_text_and_article_list()[1]
-article_idx = creator.get_text_and_article_list()[0]
+# creator = dataset_creator("/Users/wangyangwu/Documents/Sentence_transformers/03_2021_trans.txt")
+# creator.create_dataset()
+# text = creator.get_text_and_article_list()[1]
+# article_idx = creator.get_text_and_article_list()[0]
 
-output_dim = [32,64,128,256,384,512]
+# output_dim = [32,64,128,256,384,512]
 
-model_paths = ['fine_tuned_model_32/','fine_tuned_model_64/','fine_tuned_model_128/','fine_tuned_model_256/','fine_tuned_model_384/','fine_tuned_model_512/']
-directory = '/Users/wangyangwu/Documents/Sentence_transformers/text_to_be_trained/'
+# model_paths = ['fine_tuned_model_32/','fine_tuned_model_64/','fine_tuned_model_128/','fine_tuned_model_256/','fine_tuned_model_384/','fine_tuned_model_512/']
+# directory = '/Users/wangyangwu/Documents/Sentence_transformers/text_to_be_trained/'
 
-save_csv_path = "/Users/wangyangwu/Documents/Sentence_transformers/Sentence_tensors"
-model = Sentence_tensor_generator()
+# save_csv_path = "/Users/wangyangwu/Documents/Sentence_transformers/Sentence_tensors"
+# model = Sentence_tensor_generator()
 
-for i in range(len(model_paths)):
-	full_model_path = directory+model_paths[i]
-	dim = output_dim[i]
-	model.setup(full_model_path, save_csv_path, text, article_idx, dim)
-	model.generate_sentence_tensor()
-	model.save_to_csv()
+# for i in range(len(model_paths)):
+# 	full_model_path = directory+model_paths[i]
+# 	dim = output_dim[i]
+# 	model.setup(full_model_path, save_csv_path, text, article_idx, dim)
+# 	model.generate_sentence_tensor()
+# 	model.save_to_csv()
