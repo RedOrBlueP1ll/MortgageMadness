@@ -100,7 +100,7 @@ class dataset_creator_advanced():
             self.sd = list()
 
         
-    ## This method preprocesses text file: 
+    ## This method preprocesses text file by: 
     ## 1. sentences separation
     ## 2. sentence reformation
     ## 3. remove sentences with lenght less than 3
