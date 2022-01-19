@@ -5,7 +5,7 @@ from torch import nn
 import torch
 import os
 import sys
-from dataset_creator_modified import dataset_creator
+from data_creator_advanced import dataset_creator_advanced
 from fine_tuner import fine_tuner
 
 ## This is the main process of fine tuning
@@ -15,25 +15,33 @@ from fine_tuner import fine_tuner
 ## and remove all dimensions that you don't from the "outout_dim" list
 def main():
 	directory = "/Users/wangyangwu/Documents/Sentence_transformers/text_to_be_trained/"
+	dest_directory = "/Users/wangyangwu/Documents/Sentence_transformers/text_trained/"
+	model_directory = "/Users/wangyangwu/Documents/Sentence_transformers/saved_models/"
 	file_names = [directory+filename for filename in os.listdir(directory) if filename.endswith(".txt")]
-	output_dim = [32,64,96,128,256,300,384,450,512] #
-	model_save_path = ['fine_tuned_model_32/','fine_tuned_model_64/','fine_tuned_model_128/','fine_tuned_model_256/','fine_tuned_model_384/','fine_tuned_model_512/']
-	fine_tuner = fine_tuner()
+	dest_file_names = [dest_directory+filename for filename in os.listdir(directory) if filename.endswith(".txt")]
+	# output_dim = [32,64,96,128,200,256,300,384,450,512]
+	output_dim = [16]
+	model_name = "fine_tuned_model_"
+	fineTuner = fine_tuner()
 	start = time.time()
 	for i in range(len(output_dim)):
-		print(f" --- Training model without output dimention {output_dim[i]}... ---")
+		print(f" --- Fine tuning model with output dimention {output_dim[i]}... ---")
 		dim = output_dim[i]
-		path = directory+model_save_path[i]
-		fine_tuner.setup_output(dim, path)
+		model_save_path = model_directory+model_name+str(dim)+"/"
+		fineTuner.setup_output(dim, model_save_path)
+		creator = dataset_creator_advanced(model_save_path,dim)
 		for file in file_names:
-			creator = dataset_creator(file)
+			creator.set_file(file)
 			creator.create_dataset()
-			creator.combine_sets()
-			sent1 = creator.sent1
-			sent2 = creator.sent2
-			labels = creator.label
-			fine_tuner.setup_data(sent1, sent2, labels)
-			fine_tuner.create_dataset_train_test(0, True, 16)
-			fine_tuner.fine_tune(2, 0, 0, True)
-		print(f" --- Model Trained --- ")
+			sent1 = creator.first_sentences
+			sent2 = creator.second_sentences
+			labels = creator.labels
+			fineTuner.setup_data(sent1, sent2, labels)
+			fineTuner.create_dataset_train_test(0, True, 32)
+			fineTuner.fine_tune(2, 0, 0, True)
+			# shutil.move(file, dest_file_names[i])
+			creator.reset()
+		print(f"---- Model is fine tuned ----")
 	print(time.time()-start)
+
+main()

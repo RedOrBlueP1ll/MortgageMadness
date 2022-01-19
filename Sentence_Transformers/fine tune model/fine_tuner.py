@@ -1,14 +1,14 @@
 from sentence_transformers import SentenceTransformer, InputExample, losses, evaluation, models,util
 from torch.utils.data import DataLoader
-from dataset_creator_modified import dataset_creator
+from data_creator_advanced import dataset_creator_advanced
 import time
 from torch import nn
 import torch
 import os
 import sys
+import shutil
 
 
-## This class is for fine tuning the model
 class fine_tuner:
 
 	## This method defines several varaibles needed for fine tuning
@@ -23,6 +23,7 @@ class fine_tuner:
 		self.test_data = []
 		self.training_dataloader = None
 		self.model = None
+
 
 	## This method sets up fine tuning hyperparameters
 	## output_dim: dimension of output tensors
@@ -72,6 +73,4 @@ class fine_tuner:
 				  # save_best_model = True,
 				  # evaluator=evaluator
 				  )
-
-
 

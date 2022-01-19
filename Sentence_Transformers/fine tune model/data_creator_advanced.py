@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from sentence_tensor_generator import Sentence_tensor_generator
 
 
-## This class creates dataset needed for fine tuning Sentence Transformers
+## This class creates training dataset for fine tuning Sentence Transformers
 class dataset_creator_advanced():
 
     ## This method initializes path for input model and output dimension
